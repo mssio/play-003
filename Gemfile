@@ -11,13 +11,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
-gem 'high_voltage'
-group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_21]
-  gem 'quiet_assets'
-  gem 'rails_layout'
-end
-group :production do
-  gem 'puma'
-end
+gem 'bower-rails', '~> 0.7.3'
+gem 'koala', '~> 1.10.0rc'
+gem 'figaro'
+gem 'redcarpet'
+gem 'github-markup'

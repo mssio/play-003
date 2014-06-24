@@ -1,148 +1,33 @@
-P 003
-=========
+# About P-003
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+This website is created to verify that the visitor is **selected friend** of website's owner.
 
-Diagnostics
--
+It will use Facebook to verify that the visitor is a friend of website's owner and visitor's name is already registered on database.
 
-This application was built with recipes that are NOT known to work together.
+Sorry, no test unit implemented yet. I'll implement it later when I have learnt more about RSpec.
 
-This application was built with preferences that are NOT known to work
-together.
+Here is list of library that I've used:
 
-If the application doesn’t work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include these diagnostics:
+- figaro for all environment variables :
+	- FACEBOOK\_APP\_ID
+	- FACEBOOK\_APP\_SECRET
+	- FACEBOOK\_OWNER\_ID (Facebook Owner's app specific user ID)
+	- FACEBOOK\_OWNER\_LINK (Facebook Owner's user profile link to contact if user is not registered)
+- koala for Facebook Open Graph API wrapper
+- bower-rails
+- bootstrap for CSS layout
+- font-awesome (bower component)
+- bootstrap-social for Facebook button (bower component)
+- github-markup to show about page this readme document
 
-We’d also like to know if you’ve found combinations of recipes or
-preferences that do work together.
+Installation step by step :
 
-Recipes:
-
-* controllers
-* core
-* deployment
-* email
-* extras
-* frontend
-* gems
-* git
-* init
-* learn_rails
-* models
-* prelaunch
-* rails_bootstrap
-* rails_devise
-* rails_devise_pundit
-* rails_foundation
-* rails_omniauth
-* rails_signup_download
-* railsapps
-* readme
-* routes
-* saas
-* setup
-* testing
-* tests4
-* views
-
-Preferences:
-
-* git: true
-* apps4: rails-bootstrap
-* authentication: false
-* authorization: false
-* better_errors: true
-* database: default
-* deployment: none
-* devise_modules: false
-* email: none
-* form_builder: false
-* frontend: bootstrap3
-* local_env_file: false
-* pry: false
-* quiet_assets: true
-* starter_app: false
-* dev_webserver: webrick
-* prod_webserver: puma
-* templates: erb
-* tests: none
-* rvmrc: false
-* jsruntime: false
-
-Ruby on Rails
----
-
-This application requires:
-
--   Ruby
--   Rails
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
-
-Database
----
-
-This application uses SQLite with ActiveRecord.
-
-Development
--
-
--   Template Engine: ERB
--   Testing Framework: Test::Unit
--   Front-end Framework: Bootstrap 3.0 (Sass)
--   Form Builder: None
--   Authentication: None
--   Authorization: None
--   Admin: None
-
-
-
-
-
-
- delivery is disabled in development.
-
-Getting Started
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Documentation and Support
-
-
-This is the only documentation.
-
-#### Issues
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Similar Projects
--
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Contributing
---
-
-If you make improvements to this application, please share with others.
-
--   Fork the project on GitHub.
--   Make your feature addition or bug fix.
--   Commit with Git.
--   Send the author a pull request.
-
-If you add functionality to this application, create an alternative
-implementation, or build an application that is similar, please contact
-me and I’ll add a note to the README so that others can find your work.
-
-Credits
---
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-License
---
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+- git clone ...
+- bundle install
+- input seeds.rb with list of your registered friend (_FacebookFriend.create(name: 'Werner Heisenberg')_)
+- rake db:migrate
+- rake db:seed
+- rake bower:install
+- rake bower:resolve
+- rails g figaro:install
+- input all required environment variables

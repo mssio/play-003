@@ -1,0 +1,7 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "font-awesome": "~> 4.1.0",
+    "bootstrap-social": "~> 4.5.1"
+  }
+}

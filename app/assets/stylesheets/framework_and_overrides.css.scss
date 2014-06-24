@@ -1,5 +1,6 @@
-// import the CSS framework
-@import "bootstrap";
+@import 'bootstrap';
+@import 'font-awesome/css/font-awesome.min.css';
+@import 'bootstrap-social/bootstrap-social.css';
 
 // make all images responsive by default
 img {
@@ -34,10 +35,8 @@ img {
 // to make views framework-neutral
 main {
   @extend .container;
-  background-color: #eee;
   padding-bottom: 80px;
-  width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin-top: 75px; // accommodate the navbar
   }
 section {
   @extend .row;
