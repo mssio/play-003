@@ -2,6 +2,7 @@ class VisitorsController < ApplicationController
   include FacebookHelper
   before_action :set_fb_user, except: [:fb_login, :fb_logout, :fb_callback, :about]
   before_action :check_friend, :check_name, only: [:verified]
+  before_action :auth_route
   
   def about
     require 'github/markup'
@@ -14,17 +15,12 @@ class VisitorsController < ApplicationController
   end
   
   def index
-    redirect_to '/verified' unless @fb_user.blank?
   end
   
   def verified
-    redirect_to '/' if @fb_user.blank?
-    redirect_to '/not-registered' unless check_friend && check_name
   end
   
   def not_registered
-    redirect_to '/' if @fb_user.blank?
-    redirect_to '/verified' if check_friend && check_name
     @fb_owner_link = Rails.application.secrets.facebook_owner_link.to_s
   end
   
@@ -68,15 +64,34 @@ class VisitorsController < ApplicationController
   
     def check_friend
       my_friend = false
-      @fb_user_friends.each do |friend|
-        my_friend = friend["id"].to_s == Rails.application.secrets.facebook_owner_id.to_s
-        break if my_friend
+      unless @fb_user_friends.blank?
+        @fb_user_friends.each do |friend|
+          my_friend = friend["id"].to_s == Rails.application.secrets.facebook_owner_id.to_s
+          break if my_friend
+        end
       end
       my_friend
     end
   
     def check_name
-      friend_name_list = FacebookFriend.pluck(:name)
-      friend_name_list.include?(@fb_user["name"].to_s)
+      valid_name = false
+      unless @fb_user.blank?
+        friend_name_list = FacebookFriend.pluck(:name)
+        valid_name = friend_name_list.include?(@fb_user["name"].to_s)
+      end
+      valid_name
+    end
+  
+    def auth_route
+      case action_name
+      when 'index'
+        redirect_to '/verified' and return unless @fb_user.blank?
+      when 'verified'
+        redirect_to '/' and return if @fb_user.blank?
+        redirect_to '/not-registered' and return unless check_friend && check_name
+      when 'not_registered'
+        redirect_to '/' and return if @fb_user.blank?
+        redirect_to '/verified' and return if check_friend && check_name
+      end
     end
 end
