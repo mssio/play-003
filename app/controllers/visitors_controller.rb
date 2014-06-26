@@ -14,7 +14,6 @@ class VisitorsController < ApplicationController
   end
   
   def index
-    Rails.logger.info session[:access_token]
     redirect_to '/verified' unless @fb_user.blank?
   end
   
@@ -34,13 +33,17 @@ class VisitorsController < ApplicationController
   end
   
   def fb_logout
-    access_token = nil
+    set_token nil
     redirect_to '/'
   end
   
   def fb_callback
-    set_token oauth.get_access_token(params[:code])
-    redirect_to '/'
+    set_token oauth.get_access_token(params[:code]) unless params[:code].blank?
+    if params[:code].blank?
+      redirect_to '/', flash: { error: 'Please allow the facebook apps permission request.' }
+    else
+      redirect_to '/'
+    end
   end
   
   private
