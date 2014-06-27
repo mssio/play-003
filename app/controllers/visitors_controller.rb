@@ -47,7 +47,7 @@ class VisitorsController < ApplicationController
       @fb_user = fb_user
       @fb_user_friends = fb_user_friends
       unless @fb_user.blank?
-        @fb_user_db = FacebookUser.find_by name: @fb_user['name']
+        @fb_user_db = FacebookUser.find_by app_profile_id: @fb_user['app_profile_id']
         if @fb_user_db
           @fb_user_db.app_profile_id ||= @fb_user['id'];
           @fb_user_db.my_friend = check_friend
